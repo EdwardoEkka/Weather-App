@@ -7,7 +7,7 @@ async function getWeather() {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
-        if (true) {
+        if (response.ok) {
             const ResultBox = document.getElementById('weather-result');
             ResultBox.innerHTML = ''; // Clear previous results
             
@@ -51,21 +51,7 @@ async function getWeather() {
             UV.className = 'uv';
             UV.innerHTML = `<strong>UV Index:</strong> ${data.current.uv}`;
 
-            const AirQuality = document.createElement('div');
-            AirQuality.className = 'air-quality';
-            AirQuality.innerHTML = `
-                <strong>Air Quality:</strong>
-                <ul>
-                    <li>CO: ${data.current.air_quality.co}</li>
-                    <li>NO2: ${data.current.air_quality.no2}</li>
-                    <li>O3: ${data.current.air_quality.o3}</li>
-                    <li>SO2: ${data.current.air_quality.so2}</li>
-                    <li>PM2.5: ${data.current.air_quality.pm2_5}</li>
-                    <li>PM10: ${data.current.air_quality.pm10}</li>
-                    <li>US EPA Index: ${data.current.air_quality['us-epa-index']}</li>
-                    <li>GB DEFRA Index: ${data.current.air_quality['gb-defra-index']}</li>
-                </ul>
-            `;
+            
 
             ResultBox.style.display = 'block';
             ResultBox.appendChild(Cityname);
@@ -78,7 +64,7 @@ async function getWeather() {
             ResultBox.appendChild(Pressure);
             ResultBox.appendChild(Visibility);
             ResultBox.appendChild(UV);
-            ResultBox.appendChild(AirQuality);
+
         } else {
             alert(data.error.message);
         }
